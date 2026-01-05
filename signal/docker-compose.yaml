@@ -1,0 +1,8 @@
+#version: "3.8"
+services:
+  tp-apache:
+    build: "./apache"
+    ports:
+      - "55555:80"
+    volumes:
+      - ./www/:/var/www/html/
