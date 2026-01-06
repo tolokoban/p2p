@@ -12,7 +12,23 @@ export class Peer {
   protected async signal(
     args: SignalParameters,
   ): Promise<Record<string, string>> {
-    console.log('🐞 [peer@15] args =', args) // @FIXME: Remove this line written on 2026-01-06 at 13:44
-    return {};
+    const data: {s: string, i?: string, k?: string } = {
+        s: args.service
+    }
+    const headers = new Headers({
+        "Content-Type": "application/json",
+    })
+    const resp = await fetch(
+        this.signalServerURL, {
+            method: "POST",
+            headers,
+            mode: "cors",
+            cache: "no-cache",
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+            body: JSON.stringify(data)
+        }
+    )
+    return await resp.json();
   }
 }

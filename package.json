@@ -8,5 +8,8 @@
     "private": false,
     "files": [
         "./dist"
-    ]
+    ],
+    "dependencies": {
+        "@tolokoban/type-guards": "^0.9.0"
+    }
 }

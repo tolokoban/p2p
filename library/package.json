@@ -5,11 +5,11 @@
         "build": "build-typescript-library ."
     },
     "dependencies": {
-        "@tolokoban/type-guards": "^0.9.0",
-        "build-typescript-library": "^0.9.0",
-        "typescript": "^5.9.3"
+        "@tolokoban/type-guards": "^0.9.0"
     },
     "devDependencies": {
-        "prettier": "^3.7.4"
+        "build-typescript-library": "^0.9.0",
+        "prettier": "^3.7.4",
+        "typescript": "^5.9.3"
     }
 }

@@ -7,6 +7,10 @@ A is the initiator of the communication.
 
 *********************************************************/
 
+header('Access-Control-Allow-Origin: *');
+header("Content-Type: application/json; charset=UTF-8");
+
+
 function setOffer($offer)
 {
     session_start();
@@ -35,8 +39,20 @@ function getAnswer()
 
 function execute()
 {
-    $service = @$_REQUEST['s'];
-    $input = @$_REQUEST['i'];
+    try {
+        $content = trim(file_get_contents("php://input"));
+        $data = json_decode($content, true);
+        @$service = $data['s'];
+        @$input = $data['i'];
+        @$key = $data['k'];
+    } catch (Exception $e) {
+        return [
+            "type" => "error",
+            "message" => "Unable to parse parameters!",
+            "args" => $_REQUEST
+        ];
+    }
+    session_id($key);
 
     switch ($service) {
         case 'set-offer':
@@ -48,16 +64,16 @@ function execute()
         case 'get-answer':
             return getAnswer();
         default:
-            return "Unknown service \"$service\"!";
+            return [
+                "type" => "error",
+                "message" => "Unknown service \"$service\"!",
+                "args" => $_REQUEST
+            ];
     }
 }
 
 $output = null;
 ob_start();
-$key = @$_REQUEST['k'];
-if (is_string($key) && strlen($key) > 0) {
-    session_id($key);
-}
 try {
     $output = execute();
 } catch (Exception $e) {
