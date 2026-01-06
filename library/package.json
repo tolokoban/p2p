@@ -1,0 +1,15 @@
+{
+    "name": "@tolokoban/p2p",
+    "version": "0.1.0",
+    "scripts": {
+        "build": "build-typescript-library ."
+    },
+    "dependencies": {
+        "@tolokoban/type-guards": "^0.9.0",
+        "build-typescript-library": "^0.9.0",
+        "typescript": "^5.9.3"
+    },
+    "devDependencies": {
+        "prettier": "^3.7.4"
+    }
+}

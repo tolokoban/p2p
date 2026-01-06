@@ -7,19 +7,64 @@ A is the initiator of the communication.
 
 *********************************************************/
 
-
-session_start();
-
-if (!isset($_SESSION['count'])) {
-    $_SESSION['count'] = 0;
-} else {
-    $_SESSION['count']++;
+function setOffer($offer)
+{
+    session_start();
+    $_SESSION["offer"] = $offer;
+    return ["id" => session_id()];
 }
-echo "<h1>Test 1</h1>";
 
-echo "<ul><li>Count: " . $_SESSION['count']
-    . "</li><li>Session: " . session_id()
-    . "</li><li>SID: " . htmlspecialchars(SID)
-    . "</li></ul>";
+function setAnswer($answer)
+{
+    session_start();
+    $_SESSION["answer"] = $answer;
+    return ["id" => session_id()];
+}
 
-phpinfo();
+function getOffer()
+{
+    session_start();
+    return ["offer" => $_SESSION['offer']];
+}
+
+function getAnswer()
+{
+    session_start();
+    return ["answer" => $_SESSION['answer']];
+}
+
+function execute()
+{
+    $service = @$_REQUEST['s'];
+    $input = @$_REQUEST['i'];
+
+    switch ($service) {
+        case 'set-offer':
+            return setOffer($input);
+        case 'set-answer':
+            return setAnswer($input);
+        case 'get-offer':
+            return getOffer();
+        case 'get-answer':
+            return getAnswer();
+        default:
+            return "Unknown service \"$service\"!";
+    }
+}
+
+$output = null;
+ob_start();
+$key = @$_REQUEST['k'];
+if (is_string($key) && strlen($key) > 0) {
+    session_id($key);
+}
+try {
+    $output = execute();
+} catch (Exception $e) {
+    $output = [
+        "type" => "error",
+        "message" => $e->getMessage()
+    ];
+}
+ob_clean();
+echo json_encode($output);
