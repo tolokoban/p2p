@@ -11,5 +11,8 @@
     ],
     "dependencies": {
         "@tolokoban/type-guards": "^0.9.0"
+    },
+    "devDependencies": {
+        "prettier": "^3.7.4"
     }
 }

@@ -7,40 +7,58 @@ A is the initiator of the communication.
 
 *********************************************************/
 
-header('Access-Control-Allow-Origin: *');
-header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Credentials: true");
 
+// Handle preflight OPTIONS request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    // Just exit with 200 OK status
+    exit(0);
+}
+
+header("Content-Type: application/json; charset=UTF-8");
 
 function setOffer($offer)
 {
     session_start();
     $_SESSION["offer"] = $offer;
-    return ["id" => session_id()];
+    $address = $_SERVER['REMOTE_ADDR'];
+    $address = getHostByName(getHostName());
+    return [
+        "id" => session_id(),
+        "address" => $address,
+        "hostname" => getHostName()
+    ];
 }
 
 function setAnswer($answer)
 {
     session_start();
     $_SESSION["answer"] = $answer;
-    return ["id" => session_id()];
+    return [
+        "id" => session_id()
+    ];
 }
 
 function getOffer()
 {
     session_start();
-    return ["offer" => $_SESSION['offer']];
+    return ["offer" => @$_SESSION['offer']];
 }
 
 function getAnswer()
 {
     session_start();
-    return ["answer" => $_SESSION['answer']];
+    return ["answer" => @$_SESSION['answer']];
 }
 
 function execute()
 {
     try {
         $content = trim(file_get_contents("php://input"));
+        error_log($content);
         $data = json_decode($content, true);
         @$service = $data['s'];
         @$input = $data['i'];
@@ -72,8 +90,8 @@ function execute()
     }
 }
 
-$output = null;
 ob_start();
+$output = null;
 try {
     $output = execute();
 } catch (Exception $e) {
@@ -83,4 +101,5 @@ try {
     ];
 }
 ob_clean();
+
 echo json_encode($output);

@@ -50,24 +50,6 @@ export default (env) => {
             },
         },
         devtool: isProdMode ? false : "inline-source-map",
-        devServer: {
-            compress: true,
-            historyApiFallback: true,
-            static: {
-                directory: Path.resolve(__dirname, "./public"),
-            },
-            client: {
-                logging: "none",
-                overlay: { errors: false, warnings: false },
-                progress: true,
-            },
-            hot: true,
-            // Open WebBrowser.
-            open: true,
-            host: "0.0.0.0",
-            port: env.PORT || Package.port,
-            server: "http",
-        },
         stats: {
             children: true,
             colors: true,
@@ -98,7 +80,7 @@ export default (env) => {
             new Rspack.CopyRspackPlugin({
                 patterns: [
                     {
-                        from: "public/*",
+                        from: "*.ico",
                         context: Path.resolve(__dirname, "public"),
                         globOptions: {
                             ignore: ["index.html"],

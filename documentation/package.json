@@ -8,7 +8,8 @@
         "build": "rspack --mode=production",
         "predeploy": "npm run build",
         "deploy": "gh-pages -d ./build",
-        "start": "rspack serve --mode=development",
+        "prestart": "http-server ./build/ -p 0 -o &",
+        "start": "rspack --mode=development --watch",
         "routes": "build-react-routes ./src/app/",
         "generate": "npm run routes",
         "lint": "eslint --config eslint.config.ts"
@@ -16,6 +17,7 @@
     "dependencies": {
         "@tolokoban/p2p": "file:..",
         "@tolokoban/ui": "^0.25.2",
+        "qrcode": "^1.5.4",
         "react": "19.2.3",
         "react-dom": "19.2.3"
     },
@@ -25,6 +27,7 @@
         "@rspack/cli": "^1.6.4",
         "@rspack/core": "^1.6.4",
         "@types/node": "^25.0.3",
+        "@types/qrcode": "^1.5.6",
         "@types/react": "^19.2.6",
         "@types/react-dom": "^19.2.3",
         "babel-loader": "^10.0.0",
@@ -38,6 +41,7 @@
         "eslint-plugin-unicorn": "^62.0.0",
         "gh-pages": "^6.3.0",
         "globals": "^17.0.0",
+        "http-server": "^14.1.1",
         "install": "^0.13.0",
         "mini-css-extract-plugin": "^2.9.4",
         "npm": "^11.6.2",

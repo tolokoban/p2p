@@ -2,7 +2,8 @@
     "name": "@tolokoban/p2p",
     "version": "0.1.0",
     "scripts": {
-        "build": "build-typescript-library ."
+        "build": "build-typescript-library .",
+        "start": "build-typescript-library . --watch"
     },
     "dependencies": {
         "@tolokoban/type-guards": "^0.9.0"

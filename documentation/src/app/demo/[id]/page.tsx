@@ -1,5 +1,6 @@
 import { ViewPanel, ViewStrip } from "@tolokoban/ui";
-import Content from "./_/Content";
+
+import Content from "./Content";
 
 export default function Page() {
   return (
@@ -12,7 +13,7 @@ export default function Page() {
     >
       <ViewStrip orientation="column" template="-1">
         <ViewPanel color="primary-5" padding={["S", "M"]} fontSize="L">
-          @tolokoban/p2p
+          @tolokoban/p2p (answer)
         </ViewPanel>
         <ViewPanel
           color="neutral-5"
