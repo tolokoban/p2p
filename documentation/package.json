@@ -8,7 +8,7 @@
         "build": "rspack --mode=production",
         "predeploy": "npm run build",
         "deploy": "gh-pages -d ./build",
-        "prestart": "http-server ./build/ -p 0 -o &",
+        "prestart": "./start.sh",
         "start": "rspack --mode=development --watch",
         "routes": "build-react-routes ./src/app/",
         "generate": "npm run routes",
@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "@tolokoban/p2p": "file:..",
+        "@tolokoban/react-state": "^0.7.2",
         "@tolokoban/ui": "^0.25.2",
         "qrcode": "^1.5.4",
         "react": "19.2.3",

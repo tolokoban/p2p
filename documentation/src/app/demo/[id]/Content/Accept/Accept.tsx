@@ -1,23 +1,20 @@
 import React from "react";
-import {
-  IconSpaceInvader,
-  ViewButton,
-  ViewInputText,
-  ViewPanel,
-} from "@tolokoban/ui";
-import { PeerOffer } from "@tolokoban/p2p";
+import { IconPlug, ViewButton, ViewInputText, ViewPanel } from "@tolokoban/ui";
+import { PeerAnswer, PeerOffer } from "@tolokoban/p2p";
 import { State } from "@/state";
+import { useRouteParamAsString } from "@/app/routes";
 
-export interface InviteProps {
-  onPeer(peer: PeerOffer): void;
+export interface AcceptProps {
+  onPeer(peer: PeerAnswer): void;
 }
 
-export function Invite({ onPeer }: InviteProps) {
+export function Accept({ onPeer }: AcceptProps) {
+  const id = useRouteParamAsString("id");
   const [busy, setBusy] = React.useState(false);
   const [signalServer, setsignalServer] = State.signalServer.useState();
   const handleconnect = async () => {
     setBusy(true);
-    const peer = await PeerOffer.connect(signalServer);
+    const peer = await PeerAnswer.connect(signalServer, id);
     onPeer(peer);
     setBusy(false);
   };
@@ -35,12 +32,8 @@ export function Invite({ onPeer }: InviteProps) {
         value={signalServer}
         onChange={setsignalServer}
       />
-      <ViewButton
-        icon={IconSpaceInvader}
-        enabled={!busy}
-        onClick={handleconnect}
-      >
-        Invite
+      <ViewButton icon={IconPlug} enabled={!busy} onClick={handleconnect}>
+        Accept
       </ViewButton>
     </ViewPanel>
   );

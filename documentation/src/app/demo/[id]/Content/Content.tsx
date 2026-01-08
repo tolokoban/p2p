@@ -1,26 +1,15 @@
 import React from "react";
 import { PeerAnswer } from "@tolokoban/p2p";
 
-import { useRouteParamAsString } from "@/app/routes";
 import { ViewSpinner } from "@tolokoban/ui";
+import { Accept } from "./Accept";
 
 export default function Content() {
-  const id = useRouteParamAsString("id");
   const [peer, setPeer] = React.useState<PeerAnswer | null>(null);
   const connected = useConnected(peer);
-  React.useEffect(() => {
-    const action = async () => {
-      setPeer(await PeerAnswer.connect("http://localhost:55555", id));
-    };
-    action();
-  }, [id]);
 
   if (!peer) {
-    return (
-      <ViewSpinner>
-        <b>{id}</b>
-      </ViewSpinner>
-    );
+    return <Accept onPeer={setPeer} />;
   }
 
   if (!connected) {

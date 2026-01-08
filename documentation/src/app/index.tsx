@@ -31,7 +31,9 @@ export default function App({ lang }: { lang?: string }) {
         <Route path="/" Page={pg0} fallback={fb0} context={context}>
             <Route path="/demo" fallback={fb0} context={context}>
                 <Route path="/demo/[id]" Page={pg2} fallback={fb0} context={context}>
-                    <Route path="/demo/[id]/Content" fallback={fb0} context={context}/>
+                    <Route path="/demo/[id]/Content" fallback={fb0} context={context}>
+                        <Route path="/demo/[id]/Content/Accept" fallback={fb0} context={context}/>
+                    </Route>
                 </Route>
             </Route>
         </Route>
