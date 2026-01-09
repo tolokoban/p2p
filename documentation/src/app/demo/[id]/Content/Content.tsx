@@ -3,6 +3,7 @@ import { PeerAnswer } from "@tolokoban/p2p";
 
 import { ViewSpinner } from "@tolokoban/ui";
 import { Accept } from "./Accept";
+import Chat from "@/components/Chat";
 
 export default function Content() {
   const [peer, setPeer] = React.useState<PeerAnswer | null>(null);
@@ -16,7 +17,7 @@ export default function Content() {
     return <ViewSpinner>Connecting...</ViewSpinner>;
   }
 
-  return <h1>Connected!</h1>;
+  return <Chat peer={peer} />;
 }
 
 function useConnected(peer: PeerAnswer | null) {

@@ -4,6 +4,7 @@ import { PeerOffer } from "@tolokoban/p2p";
 import QRCode from "qrcode";
 
 import Styles from "./QrCodeButton.module.css";
+import Chat from "@/components/Chat";
 
 const $ = Theme.classNames;
 
@@ -31,7 +32,7 @@ export default function QrCodeButton({ className, peer }: QrCodeButtonProps) {
       </div>
     );
 
-  return <h1>Connected!</h1>;
+  return <Chat peer={peer} />;
 }
 
 function useConnected(peer: PeerOffer) {

@@ -1,0 +1,47 @@
+.chat {
+  max-height: (100dvh - 8em);
+
+  > div.messages {
+    > div.mine,
+    div.theirs {
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: row;
+
+      > div {
+        border-radius: 0.5em;
+        width: 80%;
+        font-size: 80%;
+        margin: 2px 0;
+        padding: 0.5em;
+      }
+    }
+
+    .mine {
+      justify-content: flex-end;
+
+      > div {
+        background: var(--theme-color-secondary-5);
+        color: var(--theme-color-on-secondary-5);
+      }
+    }
+
+    .theirs {
+      justify-content: flex-start;
+
+      > div {
+        background: var(--theme-color-primary-5);
+        color: var(--theme-color-on-primary-5);
+      }
+    }
+  }
+
+  > div.prompt {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5em;
+  }
+}

@@ -4,6 +4,7 @@ import {
   ViewButton,
   ViewInputText,
   ViewPanel,
+  ViewSpinner,
 } from "@tolokoban/ui";
 import { PeerOffer } from "@tolokoban/p2p";
 import { State } from "@/state";
@@ -21,6 +22,10 @@ export function Invite({ onPeer }: InviteProps) {
     onPeer(peer);
     setBusy(false);
   };
+
+  if (busy) {
+    return <ViewSpinner>Contacting STUN server...</ViewSpinner>;
+  }
 
   return (
     <ViewPanel

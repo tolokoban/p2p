@@ -29,7 +29,6 @@ export class PeerAnswer extends Peer {
 
   private async connect() {
     const offer = await this.readOffer();
-    console.log("🐞 [answer@35] offer.sdp =", offer.sdp); // @FIXME: Remove this line written on 2026-01-07 at 11:11
     const answer = await this.createAnswer(offer);
     await this.signalAnswer(answer);
   }
@@ -39,10 +38,8 @@ export class PeerAnswer extends Peer {
       service: "get-offer",
       key: this.id,
     });
-    console.log("🐞 [answer@42] data =", data); // @FIXME: Remove this line written on 2026-01-07 at 17:29
     assertType(data, { offer: "string" });
     const offer = JSON.parse(data.offer);
-    console.log("🐞 [answer@45] offer =", offer); // @FIXME: Remove this line written on 2026-01-07 at 17:29
     assertType$<RTCSessionDescriptionInit>(offer, {
       type: ["literal", "offer"],
       sdp: "string",
@@ -86,8 +83,4 @@ export class PeerAnswer extends Peer {
       action();
     });
   }
-
-  private readonly onMessage = (data: unknown) => {
-    console.log("🐞 [offer@35] data =", data); // @FIXME: Remove this line written on 2026-01-06 at 13:45
-  };
 }

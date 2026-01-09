@@ -16,7 +16,7 @@ export default function Page() {
         </ViewPanel>
         <ViewPanel
           color="neutral-5"
-          padding="L"
+          padding="S"
           display="grid"
           placeItems="center"
         >

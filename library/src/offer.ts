@@ -25,10 +25,7 @@ export class PeerOffer extends Peer {
 
   private async connect() {
     const offer = await this.createOffer();
-    console.log("🐞 [offer@32] offer.sdp =", offer.sdp); // @FIXME: Remove this line written on 2026-01-07 at 10:27
     await this.signalOffer(offer);
-    console.log("🐞 [offer@23] this.id =", this.id); // @FIXME: Remove this line written on 2026-01-06 at 16:30
-    console.log("🐞 [offer@34] this._address =", this._address); // @FIXME: Remove this line written on 2026-01-07 at 09:57
     this.pollAnswer();
   }
 
@@ -36,7 +33,6 @@ export class PeerOffer extends Peer {
     globalThis.setTimeout(async () => {
       try {
         const answer = await this.readAnswer();
-        console.log("🐞 [offer@41] answer =", answer); // @FIXME: Remove this line written on 2026-01-07 at 11:38
         if (answer) {
           this.peerConnection.setRemoteDescription(answer);
         } else {
@@ -61,7 +57,6 @@ export class PeerOffer extends Peer {
 
       const answer = JSON.parse(data.answer);
 
-      console.log("🐞 [offer@56] answer =", answer); // @FIXME: Remove this line written on 2026-01-07 at 17:38
       assertType$<RTCSessionDescriptionInit>(answer, {
         type: ["literal", "answer"],
         sdp: "string",
@@ -95,7 +90,6 @@ export class PeerOffer extends Peer {
           };
           dataChannel.onmessage = (e) => this.onMessage(e.data);
           const offer = await peerConnection.createOffer();
-          console.log("🐞 [offer@30] offer =", offer); // @FIXME: Remove this line written on 2026-01-06 at 16:20
           await peerConnection.setLocalDescription(offer);
           peerConnection.onicecandidate = (event) => {
             if (!event.candidate) {
@@ -114,8 +108,4 @@ export class PeerOffer extends Peer {
       action();
     });
   }
-
-  private readonly onMessage = (data: unknown) => {
-    console.log("🐞 [offer@35] data =", data); // @FIXME: Remove this line written on 2026-01-06 at 13:45
-  };
 }
